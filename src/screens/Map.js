@@ -31,7 +31,13 @@ export default class Map extends React.Component {
 
   render(){
     return( 
-    <Text> Map </Text>
-     
+      <SafeAreaView style={{flex:1}}>
+        <ImageBackground
+          style={{height}}
+          source={require('../assets/images/sakurafondo.jpg')}
+        >
+        <Text> Map </Text>
+        </ImageBackground>
+      </SafeAreaView>  
     )}
 }

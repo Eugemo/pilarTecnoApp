@@ -18,6 +18,7 @@ const Tab = createMaterialBottomTabNavigator();
 export const Tabs = () => {
   return (
     <Tab.Navigator
+      barStyle={{ backgroundColor: '#8E44AD'}}
       tabBarOptions={{
         activeTintColor: '#f5c511', //'rgb(41,34,97)',
         inactiveTintColor: 'red',
@@ -27,7 +28,7 @@ export const Tabs = () => {
           fontWeight: 'bold',
         },
         adaptive: true,
-        backgroundColor: '#8E44AD',
+        
       }}>
       <Tab.Screen
         name="Home"

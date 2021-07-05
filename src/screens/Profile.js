@@ -31,7 +31,14 @@ export default class Profile extends React.Component {
 
   render(){
     return( 
-    <Text> Profile </Text>
+      <SafeAreaView style={{flex:1}}>
+        <ImageBackground
+          style={{height}}
+          source={require('../assets/images/sakurafondo.jpg')}
+        >
+          <Text>Profile</Text>
+        </ImageBackground>
+    </SafeAreaView>  
      
     )}
 }
