@@ -12,18 +12,19 @@ import {
   Alert
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Input } from 'react-native-elements';
+import { Input, Button } from 'react-native-elements';
+//import { Button } from 'react-native-paper';
 
 const height = Dimensions.get('window').height
 const width = Dimensions.get('window').width
 
 
-export default class Map extends React.Component {
+export default class Log extends React.Component {
 
-  _onMapPress = () => {
+  _onLogPress = () => {
     Alert.alert(
       "Hola",
-      "Ya te encuentras en Map",
+      "Ya te encuentras en Login",
       [
         { text: "OK", onPress: () => console.log("OK Pressed") }
       ]
@@ -33,9 +34,10 @@ export default class Map extends React.Component {
 
   render(){
     return( 
-        <SafeAreaView style={{flex:1}}>
+      <SafeAreaView style={{flex:1}}>
+        <View style={styles.content}>
             <ImageBackground
-                style={{height}}
+                style={{width, height}} 
                 source={require('../assets/images/sakurafondo.jpg')}
             >
             <Text style={styles.text}> Login </Text>
@@ -54,37 +56,49 @@ export default class Map extends React.Component {
                 name='lock'
                 size={24}
                 color='#512E5F'/>}
-                />
+            />
 
             <TouchableOpacity style={[styles.button, { backgroundColor:'rgba(165, 105, 189, 0.5)' }]}>
               <Text style={styles.text}>
                 Aceptar
               </Text>
-            </TouchableOpacity>    
+            </TouchableOpacity>  
+            <Text style={styles.text}>
+                <Button title='Continuar con Google' />
+              </Text> 
+              
             </ImageBackground>
-        </SafeAreaView>
+        </View>
+      </SafeAreaView>
      
     )}
 }
 
 const styles = StyleSheet.create({
+    content:{
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+
     text: {
       fontSize:30, 
       fontWeight:'bold', 
       color:'#512E5F',
       textAlign:'center',
-      
+      marginTop: 10,
     },
     input: {
-        fontSize:30, 
+        fontSize:20, 
         fontWeight:'bold', 
         color:'#512E5F',
         textAlign:'center',
         backgroundColor:'#F4ECF7',
-      },
-      button: {
         margin: width/20,
-        borderRadius:15,
+    },
+
+      button: {
+        margin: width/10,
+        borderRadius:35,
         justifyContent:'center',
         
       }
