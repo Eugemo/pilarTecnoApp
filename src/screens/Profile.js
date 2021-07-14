@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {SafeAreaView, Dimensions, StyleSheet, Text, View} from 'react-native';
+import {SafeAreaView, Dimensions, StyleSheet, Text, View, ImageBackground,
+  TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 import {Avatar, Button} from 'react-native-elements';
 import auth from '@react-native-firebase/auth';
@@ -31,6 +32,9 @@ class Profile extends React.Component {
       <SafeAreaView
         style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <View style={styles.content}>
+        <ImageBackground
+            style={{width, height}}
+            source={require('../assets/images/sakurafondo.jpg')}>
           <View style={{alignItems: 'center'}}>
             <Avatar rounded source={{uri: photoURL}} size="xlarge" />
             <View style={styles.dataContainer}>
@@ -38,8 +42,9 @@ class Profile extends React.Component {
               <Text style={styles.infoText}>{name}</Text>
             </View>
           </View>
-        </View>
-        <View style={{flex: 1, top: 50, width: width * 0.5}}>
+          </ImageBackground>
+        </View>        
+        <View style={{flex: 1, top: 20, width: width * 0.5}}>
           <Button
             title="Salir"
             onPress={() => {
@@ -55,7 +60,7 @@ class Profile extends React.Component {
                   }
                 });
             }}
-          />
+          />          
         </View>
       </SafeAreaView>
     );
@@ -70,18 +75,19 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    top: 50,
+    top: 197,
     justifyContent: 'center',
-    // alignItems:'center'
+    //alignItems:'center'
   },
   dataContainer: {
-    top: 50,
+    top: 20,
     width,
   },
   infoText: {
     textAlign: 'center',
     fontSize: 18,
-    color: 'grey',
+    color: '#4A235A',
+    fontWeight: 'bold',
   },
 });
 const mapDispatchToProps = dispatch => ({
