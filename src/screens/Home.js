@@ -20,7 +20,9 @@ const width = Dimensions.get('window').width
 
 
 export default class Home extends React.Component {
-
+  constructor(props) {
+    super(props);
+  }  
   _onHomePress = () => {
     Alert.alert(
       "Hola",

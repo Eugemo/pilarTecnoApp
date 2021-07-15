@@ -7,6 +7,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   View,
+  Alert
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Input, Button} from 'react-native-elements';
@@ -18,6 +19,8 @@ import {
   GoogleSigninButton,
 } from '@react-native-google-signin/google-signin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Home from './Home';
+import user from '../store/reducers/user';
 
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
@@ -27,7 +30,39 @@ GoogleSignin.configure({
 });
 
 class Login extends React.Component {
-  
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      photoURL: '',
+      name: '',
+      password: '',      
+    };
+  }  
+
+  componentDidMount() {
+		auth()
+			.onAuthStateChanged((user) => {
+				console.log({ user })
+				if (user) {
+					//this.setState({ loading: false }),
+					() => this.props.navigation.navigate({Home}) 
+                    
+				} else {
+					this.setState(null);
+				}
+			})
+	}
+
+  _onPress = () => {
+    Alert.alert(
+      "Disculpa",
+      "Vista en Construccion",
+      [
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ]
+    );
+  }
 
   onGoogleButtonPress = async () => {
     // Get the users ID token
@@ -39,6 +74,7 @@ class Login extends React.Component {
   };
 
   render() {
+    const {email, photoURL, name, loading, password} = this.state;
     return (
       <SafeAreaView style={{flex: 1}}>
         <View style={styles.content}>
@@ -48,46 +84,65 @@ class Login extends React.Component {
             <Text style={styles.text}> Login </Text>
             <Input
               style={styles.input}
-              placeholder="Ingrese Usuario"
+              placeholder="Ingrese email"
+              value={email}
               leftIcon={<Icon name="user" size={24} color="#512E5F" />}
+              onChangeText={em => this.setState({email: em})}
             />
 
             <Input
               style={styles.input}
               placeholder="Password"
               secureTextEntry={true}
+              value={password}
               leftIcon={<Icon name="lock" size={24} color="#512E5F" />}
+              onChangeText={psw => this.setState({password: psw})}
             />
 
             <TouchableOpacity
               style={[
                 styles.button,
                 {backgroundColor: 'rgba(165, 105, 189, 0.5)'},
-              ]}>
+              ]}
+              onPress={() => { 
+                auth().signInWithEmailAndPassword(email, password)
+                .then(async data => {
+                  console.log('Signed in with e-mail!');                    
+                  if (data) {
+                    console.log('res login: ' + JSON.stringify(data.user));
+                    try {
+                      await AsyncStorage.setItem(
+                        'isloged',
+                        JSON.stringify(data.user),
+                      );
+                    } catch (e) {
+                      console.log('Hubo un error :' + e);
+                    }
+                    this.props.setUser(data.user);
+                  }
+                }).catch (err => {console.log(err)})
+							}} 
+              >
               <Text style={styles.text}>Aceptar</Text>
             </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={()=>this._onPress()}
+              style={[
+                styles.button,
+                {backgroundColor: 'rgba(165, 105, 189, 0.5)'},
+              ]}>
+              <Text style={styles.text}>Crear Usuario</Text> 
+						</TouchableOpacity>
             <Text style={styles.text}>
-              {/* <Button title='Continuar con Google'
-                onPress={()=>this.onGoogleButtonPress().then(async(data)=>{
-                  console.log('Signed in with Google!')
-                  if(data){
-                  console.log('res login: '+JSON.stringify(data.user))
-                  try {
-                  await AsyncStorage.setItem('isloged', JSON.stringify(data.user))
-                  } catch (e) {
-                  console.log('Hubo un error :'+e)
-                  }
-                  this.props.setUser(data.user)
-                  }
-                  })} /> */}
-              <GoogleSigninButton
+                <GoogleSigninButton
                 style={{width: 192, height: 48}}
                 size={GoogleSigninButton.Size.Wide}
                 color={GoogleSigninButton.Color.Ligth}
                 onPress={() =>
                   this.onGoogleButtonPress()
                   .then(async data => {
-                    console.log('Signed in with Google!');
+                    console.log('Signed in with Google!');                    
                     if (data) {
                       console.log('res login: ' + JSON.stringify(data.user));
                       try {
@@ -111,6 +166,7 @@ class Login extends React.Component {
   }
 }
 
+
 const styles = StyleSheet.create({
   content: {
     justifyContent: 'center',
@@ -118,7 +174,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#512E5F',
     textAlign: 'center',
@@ -134,7 +190,9 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    margin: width / 10,
+    margin: width / 20,
+    width: width/2,
+    marginLeft: 90,
     borderRadius: 35,
     justifyContent: 'center',
   },

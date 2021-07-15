@@ -1,6 +1,13 @@
 import React, {Component} from 'react';
-import {SafeAreaView, Dimensions, StyleSheet, Text, View, ImageBackground,
-  TouchableOpacity} from 'react-native';
+import {
+  SafeAreaView,
+  Dimensions,
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  TouchableOpacity,
+} from 'react-native';
 import {connect} from 'react-redux';
 import {Avatar, Button} from 'react-native-elements';
 import auth from '@react-native-firebase/auth';
@@ -8,6 +15,7 @@ import {actions} from '../store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const {height, width} = Dimensions.get('window');
+
 class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -31,64 +39,63 @@ class Profile extends React.Component {
     return (
       <SafeAreaView
         style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <View style={styles.content}>
         <ImageBackground
-            style={{width, height}}
-            source={require('../assets/images/sakurafondo.jpg')}>
-          <View style={{alignItems: 'center'}}>
-            <Avatar rounded source={{uri: photoURL}} size="xlarge" />
-            <View style={styles.dataContainer}>
-              <Text style={styles.infoText}>{email}</Text>
-              <Text style={styles.infoText}>{name}</Text>
+          style={{ height}}
+          source={require('../assets/images/sakurafondo.jpg')}>
+          <View style={styles.content}>
+            <View style={{alignItems: 'center'}}>
+              {photoURL ? <Avatar rounded source={{uri: photoURL}} size="xlarge" /> : null}
+              <View style={styles.dataContainer}>
+                <Text style={styles.infoText}>{email}</Text>
+                <Text style={styles.infoText}>{name}</Text>
+              </View>
             </View>
           </View>
-          </ImageBackground>
-        </View>        
-        <View style={{flex: 1, top: 20, width: width * 0.5}}>
-          <Button
-            title="Salir"
-            onPress={() => {
-              auth()
-                .signOut()
-                .then(async () => {
-                  console.log('User signed out!'),
-                    this.props.setUser({user: null});
-                  try {
-                    await AsyncStorage.delItem('isloged');
-                  } catch (e) {
-                    console.log('Hubo un error :' + e);
-                  }
-                });
-            }}
-          />          
-        </View>
+          <View style={{flex: 1, top: 50, width: width, paddingLeft: width/5, paddingRight: width/5}}>
+            <Button
+              title="Salir"
+              onPress={() => {
+                auth()
+                  .signOut()
+                  .then(async () => {
+                    console.log('User signed out!'),
+                      this.props.setUser({user: null});
+                    try {
+                      await AsyncStorage.removeItem('isloged');
+                    } catch (e) {
+                      console.log('Hubo un error :' + e);
+                    }
+                  });
+              }}
+            />
+          </View>
+        </ImageBackground>
       </SafeAreaView>
     );
   }
 }
+
 const styles = StyleSheet.create({
   text: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    // color:'#fff',
-    textAlign: 'center',
+      fontSize: 30,
+      fontWeight: 'bold',
+      textAlign: 'center'
   },
   content: {
-    flex: 1,
-    top: 197,
-    justifyContent: 'center',
-    //alignItems:'center'
+      flex: 1,
+      top: 50,
+      justifyContent: 'center',
   },
   dataContainer: {
-    top: 20,
-    width,
+      top: 50,
+      width
   },
   infoText: {
     textAlign: 'center',
     fontSize: 18,
     color: '#4A235A',
     fontWeight: 'bold',
-  },
+  }
 });
 const mapDispatchToProps = dispatch => ({
   setUser: ({user}) => dispatch(actions.user.setUser({user})),
