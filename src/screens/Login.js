@@ -40,20 +40,6 @@ class Login extends React.Component {
     };
   }  
 
-  componentDidMount() {
-		auth()
-			.onAuthStateChanged((user) => {
-				console.log({ user })
-				if (user) {
-					//this.setState({ loading: false }),
-					() => this.props.navigation.navigate({Home}) 
-                    
-				} else {
-					this.setState(null);
-				}
-			})
-	}
-
   _onPress = () => {
     Alert.alert(
       "Disculpa",
