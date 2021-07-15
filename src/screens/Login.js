@@ -40,16 +40,6 @@ class Login extends React.Component {
     };
   }  
 
-  _onPress = () => {
-    Alert.alert(
-      "Disculpa",
-      "Vista en Construccion",
-      [
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ]
-    );
-  }
-
   onGoogleButtonPress = async () => {
     // Get the users ID token
     const {idToken} = await GoogleSignin.signIn();
@@ -113,7 +103,7 @@ class Login extends React.Component {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={()=>this._onPress()}
+              onPress={() => this.props.navigation.navigate('Create')}
               style={[
                 styles.button,
                 {backgroundColor: 'rgba(165, 105, 189, 0.5)'},
