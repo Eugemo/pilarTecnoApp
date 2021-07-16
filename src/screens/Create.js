@@ -67,13 +67,17 @@ class Create extends React.Component {
                     .catch(error => {
                         if (error.code === 'auth/email-already-in-use') {
                         console.log('That email address is already in use!');
+                        Alert.alert('Usuario existente!')
                         }
 
                         if (error.code === 'auth/invalid-email') {
                         console.log('That email address is invalid!');
+                        Alert.alert('e-mail invalido!')
                         }
 
                         console.error(error);
+                        Alert.alert('Verifique los datos:',
+                        'mail valido y password: minimo 6 caracteres')
                     });
             }}     
                 >

@@ -50,7 +50,7 @@ class Login extends React.Component {
   };
 
   render() {
-    const {email, photoURL, name, loading, password} = this.state;
+    const {email, photoURL, name, password} = this.state;
     return (
       <SafeAreaView style={{flex: 1}}>
         <View style={styles.content}>
