@@ -70,7 +70,7 @@ class Login extends React.Component {
               style={styles.input}
               placeholder="Password"
               secureTextEntry={true}
-              value={password}
+              value={password}              
               leftIcon={<Icon name="lock" size={24} color="#512E5F" />}
               onChangeText={psw => this.setState({password: psw})}
             />
@@ -81,6 +81,7 @@ class Login extends React.Component {
                 {backgroundColor: 'rgba(165, 105, 189, 0.5)'},
               ]}
               onPress={() => { 
+                email, password ?( 
                 auth().signInWithEmailAndPassword(email, password)
                 .then(async data => {
                   console.log('Signed in with e-mail!');                    
@@ -97,7 +98,10 @@ class Login extends React.Component {
                     this.props.setUser(data.user);
                   }
                 }).catch (err => {console.log(err)})
-							}} 
+                ) : (
+                  Alert. alert('complete todos los campos')
+                )
+              }} 
               >
               <Text style={styles.text}>Aceptar</Text>
             </TouchableOpacity>

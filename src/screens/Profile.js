@@ -40,18 +40,35 @@ class Profile extends React.Component {
       <SafeAreaView
         style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <ImageBackground
-          style={{ height}}
+          style={{height}}
           source={require('../assets/images/sakurafondo.jpg')}>
           <View style={styles.content}>
             <View style={{alignItems: 'center'}}>
-              {photoURL ? <Avatar rounded source={{uri: photoURL}} size="xlarge" /> : null}
-              <View style={styles.dataContainer}>
-                <Text style={styles.infoText}>{email}</Text>
-                <Text style={styles.infoText}>{name}</Text>
-              </View>
+              {photoURL ? (
+                <Avatar rounded source={{uri: photoURL}} size="xlarge" />
+              ) : (
+                <Avatar
+                  rounded
+                  source={require('../assets/images/avatar.png')}
+                  size="xlarge"
+                />
+              )}
+                  <Text style={styles.infoText}>{email}</Text>
+                  {name ? (
+                    <Text style={styles.infoText}>{name}</Text>
+                  ) : (
+                    <Text style={styles.infoText}>Username</Text>
+                  )}                
             </View>
           </View>
-          <View style={{flex: 1, top: 50, width: width, paddingLeft: width/5, paddingRight: width/5}}>
+          <View
+            style={{
+              flex: 1,
+              top: 50,
+              width: width,
+              paddingLeft: width / 5,
+              paddingRight: width / 5,
+            }}>
             <Button
               title="Salir"
               onPress={() => {
@@ -77,25 +94,25 @@ class Profile extends React.Component {
 
 const styles = StyleSheet.create({
   text: {
-      fontSize: 30,
-      fontWeight: 'bold',
-      textAlign: 'center'
+    fontSize: 30,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   content: {
-      flex: 1,
-      top: 50,
-      justifyContent: 'center',
+    flex: 1,
+    top: 50,
+    justifyContent: 'center',
   },
   dataContainer: {
-      top: 50,
-      width
+    top: 50,
+    width,
   },
   infoText: {
     textAlign: 'center',
     fontSize: 18,
     color: '#4A235A',
     fontWeight: 'bold',
-  }
+  },
 });
 const mapDispatchToProps = dispatch => ({
   setUser: ({user}) => dispatch(actions.user.setUser({user})),
