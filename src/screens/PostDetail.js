@@ -30,6 +30,7 @@ class PostDetail extends React.Component {
     })
   }
 
+  
   render(){
     const {item} = this.props.route.params;
     return( 
@@ -55,7 +56,7 @@ class PostDetail extends React.Component {
         </View>
         </View>
         <TouchableOpacity
-                      
+                onPress={() => this.props.navigation.navigate('PostEdit', { item })}      
                 style={[
                   styles.button,                 
                 ]}

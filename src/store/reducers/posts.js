@@ -23,15 +23,13 @@ export default (state = initialState, action) => {
     if (action.type === UPDATE_POSTS) {
         update = state.posts.map((post) => {
             if (post.id === action.data.id) {
-                return {
-                    data,
-                }
+                return action.data                
             }
             return post
         })
         return {
-            ...state,
-            post: update
+           
+            posts: update.reverse()
         }
     }
     if (action.type === DEL_POSTS) {
