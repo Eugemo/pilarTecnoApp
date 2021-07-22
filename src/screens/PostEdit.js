@@ -38,7 +38,8 @@ class PostEdit extends React.Component {
     const {id} = item;
     ///VALIDACIONES
     this.props.updatePost({title, body, id}).then(() => {
-      this.props.navigation.goBack()
+      //this.props.navigation.navigate('Posts') Tambien funciona con esta linea
+      this.props.navigation.popToTop()
     })
   }
   render() {

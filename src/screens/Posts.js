@@ -36,7 +36,8 @@ class Posts extends React.Component {
       this.props.navigation.navigate('PostDetail', { item })} >
       <View style={{
         margin: 20, backgroundColor: 'rgba(0,0,0,0.5)', borderRadius: 8,
-        padding: 5
+        padding: 5,
+        
       }}>
         <View style={styles.titlecontainer}>
           <Text style={styles.title}>

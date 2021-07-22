@@ -34,15 +34,17 @@ class PostDetail extends React.Component {
   render(){
     const {item} = this.props.route.params;
     return( 
-      <SafeAreaView style={{flex:1}}>
+      <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ImageBackground
             style={{height}}
             source={require('../assets/images/sakurafondo.jpg')}
         >
         <View style={{
-        margin: 20, backgroundColor: 'rgba(0,0,0,0.5)', borderRadius: 8,
-        padding: 5
+        margin: 20, 
+        padding: 5,
+        marginTop: 20
       }}>
+        <View style={{marginTop: 50,  backgroundColor: 'rgba(0,0,0,0.5)', borderRadius: 8}}>
         <View style={styles.titlecontainer}>
           <Text style={styles.title}>
             {item.title}
@@ -53,6 +55,7 @@ class PostDetail extends React.Component {
           <Text style={styles.text}>
             {item.body}
           </Text>
+        </View>
         </View>
         </View>
         <TouchableOpacity
@@ -71,6 +74,7 @@ class PostDetail extends React.Component {
                 >
                 <Text>Borrar Post</Text>
         </TouchableOpacity>
+        
         </ImageBackground>
     </SafeAreaView>  
      
