@@ -14,6 +14,7 @@ import {Divider} from 'react-native-elements/dist/divider/Divider';
 import {actions} from '../store';
 import {connect} from 'react-redux';
 import {fetchComments} from '../api';
+import { ScrollView } from 'react-native';
 
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
@@ -88,17 +89,22 @@ class PostDetail extends React.Component {
         <ImageBackground
           style={{height}}
           source={require('../assets/images/sakurafondo.jpg')}>
+          
           <View
             style={{
               margin: 20,
               padding: 5,
-              marginTop: 20,
+              marginTop: 10,
             }}>
+              </View>
+              {/* <ScrollView > */}
             <View
               style={{
-                marginTop: 50,
+                marginTop: 40,
                 backgroundColor: 'rgba(0,0,0,0.5)',
                 borderRadius: 8,
+                padding: 5,
+                margin: 20
               }}>
               <View style={styles.titlecontainer}>
                 <Text style={styles.title}>{item.title}</Text>
@@ -108,18 +114,20 @@ class PostDetail extends React.Component {
                 <Text style={styles.text}>{item.body}</Text>
               </View>
             </View>
-          </View>
-
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('PostEdit', {item})}
-            style={[styles.button]}>
-            <Text>Editar Post</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this._delPost()}
-            style={[styles.button]}>
-            <Text>Borrar Post</Text>
-          </TouchableOpacity>
+          
+            <View style={{flexDirection: 'row', justifyContent: 'center', }}>
+              <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('PostEdit', {item})}
+              style={[styles.button]}>
+              <Text>Editar Post</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this._delPost()}
+              style={[styles.button]}>
+              <Text>Borrar Post</Text>
+            </TouchableOpacity>
+            </View>
+            
          
           {!comments ? (
             <ActivityIndicator />
@@ -140,6 +148,7 @@ class PostDetail extends React.Component {
               <Divider />            
                
               <FlatList
+                style={{marginBottom: 80}}
                 keyExtractor={this.keyExtractor}
                 data={comments}                
                 renderItem={this.renderItem}
@@ -148,6 +157,7 @@ class PostDetail extends React.Component {
             </View>        
           )}
           
+          {/* </ScrollView> */}
         </ImageBackground>
       </SafeAreaView>
     );
@@ -181,13 +191,11 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: 'rgba(165, 105, 189, 0.5)',
-    margin: width / 20,
-    width: width / 2,
-    marginLeft: 90,
-    borderRadius: 35,
-    justifyContent: 'center',
+    margin: width / 30,        
+    borderRadius: 35,    
     alignItems: 'center',
-    padding: 10,
+    padding: 7,
+    
   },
 });
 const mapDispatchToProps = dispatch => ({

@@ -77,12 +77,14 @@ class Posts extends React.Component {
                 >
                 <Text>Nuevo Post</Text>
                 </TouchableOpacity>
+                
                 <FlatList
+                  style={{marginBottom: 80}}
                   keyExtractor={this.keyExtractor}
                   data={this.props.posts.reverse()}
-                  renderItem={this.renderItem}
-                  
+                  renderItem={this.renderItem}                  
                 />   
+               
               </View>
             </ImageBackground>
         }
