@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Button,
 } from 'react-native';
 import {Image, Icon, Switch } from 'react-native-elements';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
@@ -32,18 +33,19 @@ export default class Map extends React.Component {
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
       },
+      mapType: false
     };
-    //const [isEnabled, setIsEnabled] = useState(false);
-    //const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+   
   }
-
+  
   onRegionChange = region => {
     this.setState({
+      ...this.state,
       region,
     });
   };
 
-   componentDidMount = async () => {
+  componentDidMount = async () => {
     await hasLocationPermission();
     this._getLocation();
   };
@@ -62,7 +64,9 @@ export default class Map extends React.Component {
           },
           1000
         );
-        this.setState({region:{...this.state.region, longitude,latitude}})
+        this.setState({
+          ...this.state,
+          region:{...this.state.region, longitude,latitude}})
         console.log('posicion actual... Latitud: '+`${JSON.stringify(longitude)}`+'latitud: '+`${JSON.stringify(latitude)}`)
       },
       (error) => {
@@ -99,7 +103,9 @@ export default class Map extends React.Component {
             this.mapRef = map;
           }}
           provider={PROVIDER_GOOGLE}
-          mapType='standard'
+          mapType={this.state.mapType ? 'hybrid':'standard'}
+          // mapType='hybrid'
+          showsUserLocation={true}          
           style={styles.map}
           initialRegion={this.state.region}
           // region={this.state.region}
@@ -108,10 +114,12 @@ export default class Map extends React.Component {
         <Switch
             styles={styles.switch}
             trackColor={{ false: "#767577", true: "#8d2d84" }}
-            //thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+            thumbColor={this.state.maptype ? "#f5dd4b" : "#f4f3f4"}
             ios_backgroundColor="#3e3e3e"
-            //onValueChange={toggleSwitch}
-            // value={isEnabled}
+            onValueChange={()=> this.setState({
+              ...this.state,             
+              mapType: ! this.state.mapType})}
+            value={this.state.mapType}
           />
         <View style={{position:'absolute', flexDirection:'row', backgroundColor:'white', borderRadius:100, width:width/10, alignSelf:'flex-end', margin:30, marginRight:30, alignItems:'center', justifyContent:'center'}}>
           <Icon
@@ -124,6 +132,10 @@ export default class Map extends React.Component {
         </View>
         <View style={styles.markerFixed}>
           <Image style={styles.marker} source={require('../assets/images/pin.png' )} />
+        </View>
+        <View>
+          {/* <Button title="satelital" onPress={() =>this.setState({mapType: 'hybrid'})}/> */}
+          {/* <Button title="standard" onPress={() =>this.setState({mapType: 'standard'})}/> */}
         </View>
         <SafeAreaView style={styles.footer}>
           <Text style={styles.region}>longitud:
@@ -148,7 +160,7 @@ const styles = StyleSheet.create({
     borderRadius:15,
     justifyContent:'center',
   },
-    markerFixed: {
+  markerFixed: {
     left: '50%',
     marginLeft: -24,
     marginTop: -48,
@@ -166,8 +178,8 @@ const styles = StyleSheet.create({
     height: 48,
     width: 48
   },
-    footer: {
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+  footer: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     bottom: 5,
     position: 'absolute',
     width: '100%'
@@ -180,8 +192,6 @@ const styles = StyleSheet.create({
   },
   switch:{    
     color: '#8d2d84',
-    
     position: 'absolute',
-    
   }
-  })
+})
