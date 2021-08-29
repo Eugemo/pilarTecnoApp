@@ -1,29 +1,32 @@
-const BASE_URL = 'https://jsonplaceholder.typicode.com/'
+const BASE_URL = 'https://api-vaccination-centers.herokuapp.com'
 
-///LIST POSTS
+///LIST PLaces
 export const fetchPosts = () => {
-    return fetch(BASE_URL+'posts')
+    return fetch(BASE_URL+'/places')
     .then(Response =>{
     return Promise.all([Response, Response.json()])
     })
 }
 
-///LIST COMMENTS'S POST
-export const fetchComments = ({id}) => {
-    return fetch(`${BASE_URL}posts/${id}/comments`)
-    .then(Response =>{
-    return Promise.all([Response, Response.json()])
-    })
-}
+// ///LIST COMMENTS'S POST
+// export const fetchComments = ({id}) => {
+//     return fetch(`${BASE_URL}posts/${id}/comments`)
+//     .then(Response =>{
+//     return Promise.all([Response, Response.json()])
+//     })
+// }
 
 ///CREATE POST
-export const postPosts = ({title, body}) => {
-    return fetch(BASE_URL+'posts', {
+export const postPosts = ({id, name, address, latitude, longitude, url}) => {
+    return fetch(BASE_URL+'/places', {
     method: 'POST',
     body: JSON.stringify({
-    title,
-    body,
-    userId: 1,
+        id,
+        name,
+        address,
+        latitude,
+        longitude,
+        url,    
     }),
     headers: {
     'Content-type': 'application/json; charset=UTF-8',
@@ -36,14 +39,17 @@ export const postPosts = ({title, body}) => {
 }
 
 ///EDIT POST
-export const putPost = ({title, body, id}) => {
-    return fetch(`${BASE_URL}posts/${id}`, {
+export const putPost = ({_id, name, address, latitude, longitude, url}) => {
+    const id = _id
+    return fetch(`${BASE_URL}/places/${id}`, {
     method: 'PUT',
     body: JSON.stringify({
-    id,
-    title,
-    body,
-    userId: 1,
+        id,
+        name,
+        address,
+        latitude,
+        longitude,
+        url,
     }),
     headers: {
     'Content-type': 'application/json; charset=UTF-8',
@@ -56,8 +62,9 @@ export const putPost = ({title, body, id}) => {
 }
 
 ///DELETE POST
-export const deletePost = ({id}) => {
-    return fetch(`${BASE_URL}posts/${id}`, {
+export const deletePost = ({data}) => {
+    const {_id} = data
+    return fetch(`${BASE_URL}places/${_id}`, {
     method: 'DELETE'
     })
     .then(Response =>{
@@ -67,14 +74,16 @@ export const deletePost = ({id}) => {
 }
 
 ///SHOW POST
-export const showPost = ({title, body, id}) => {
-    return fetch(`${BASE_URL}posts/${id}${id}`, {
+export const showPost = ({id, name, address, latitude, longitude, url}) => {
+    return fetch(`${BASE_URL}places/${id}${id}`, {
     method: 'PUT',
     body: JSON.stringify({
-    id,
-    title,
-    body,
-    userId: 1,
+        id,
+        name,
+        address,
+        latitude,
+        longitude,
+        url,
     }),
     headers: {
     'Content-type': 'application/json; charset=UTF-8',

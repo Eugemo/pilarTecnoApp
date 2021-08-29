@@ -9,6 +9,7 @@ import {
   View,
   FlatList,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import {Divider} from 'react-native-elements/dist/divider/Divider';
 import {actions} from '../store';
@@ -25,20 +26,23 @@ class PostDetail extends React.Component {
     super(props);
     const {item} = this.props.route.params;
     this.state = {
-      id: item.id,
-      body: item.body,
-      comments: [],
+      id: item._id,
+      name: item.name,
+      address: item.address,
+      latitude: item.latitude,
+      longitude: item.longitude,
+      // comments: [],
     };
   }
 
-  componentDidMount = () => {
-    fetchComments({id: this.state.id}).then(res => {
-      console.log('comentarios: ' + JSON.stringify(res[1]));
-      this.setState({
-        comments: res[1],
-      });     
-    });    
-  };
+  // componentDidMount = () => {
+  //   fetchComments({id: this.state.id}).then(res => {
+  //     console.log('comentarios: ' + JSON.stringify(res[1]));
+  //     this.setState({
+  //       comments: res[1],
+  //     });     
+  //   });    
+  // };
 
   keyExtractor = (item, index) => index.toString();
   renderItem = ({item}) => (    
@@ -51,19 +55,24 @@ class PostDetail extends React.Component {
       }}>
       <View style={styles.titlecontainer}>
         <Text style={styles.title}>
-          {item.email}
+          {item.name}
         </Text>
         <Divider />
       </View>      
         <View style={styles.bodycontainer}>
           <Text style={styles.text}>
-            {item.name}
+            {item.address}
           </Text>
           <Divider />
         </View>        
         <View style={styles.bodycontainer}>
           <Text style={styles.text}>
-            {item.body}
+            {item.latitude}
+          </Text>
+        </View> 
+        <View style={styles.bodycontainer}>
+          <Text style={styles.text}>
+            {item.longitude}
           </Text>
         </View>  
         
@@ -72,22 +81,22 @@ class PostDetail extends React.Component {
 
   _delPost = () => {
     const {item} = this.props.route.params;
-    const {id} = item;
+    const {_id} = item;
     ///VALIDACIONES
-    this.props.delPost({id}).then(() => {
+    this.props.delPost({_id}).then(() => {
       this.props.navigation.goBack();
     });
   };
 
   render() {
     const {item} = this.props.route.params;
-    const {comments} = this.state;
+    // const {comments} = this.state;
     
     return (
       <SafeAreaView
         style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <ImageBackground
-          style={{height}}
+          style={{height, width}}
           source={require('../assets/images/sakurafondo.jpg')}>
           
           <View
@@ -106,12 +115,22 @@ class PostDetail extends React.Component {
                 padding: 5,
                 margin: 20
               }}>
+               <Image
+                 style={{marginLeft: 50, width: 220, height: 200}}
+                 source={{uri: item.url}}
+               />
               <View style={styles.titlecontainer}>
-                <Text style={styles.title}>{item.title}</Text>
+                <Text style={styles.title}>{item.name}</Text>
               </View>
               <Divider />
               <View style={styles.bodycontainer}>
-                <Text style={styles.text}>{item.body}</Text>
+                <Text style={styles.text}>Direccion: {item.address}</Text>
+              </View>
+              <View style={styles.bodycontainer}>
+                <Text style={styles.text}>Latitud: {item.latitude}</Text>
+              </View>
+              <View style={styles.bodycontainer}>
+                <Text style={styles.text}>Longitud: {item.longitude}</Text>
               </View>
             </View>
           
@@ -119,16 +138,16 @@ class PostDetail extends React.Component {
               <TouchableOpacity
               onPress={() => this.props.navigation.navigate('PostEdit', {item})}
               style={[styles.button]}>
-              <Text>Editar Post</Text>
+              <Text>Editar Lugar</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => this._delPost()}
               style={[styles.button]}>
-              <Text>Borrar Post</Text>
+              <Text>Borrar Lugar</Text>
             </TouchableOpacity>
             </View>
             
-         
+{/*          
           {!comments ? (
             <ActivityIndicator />
           ) : (            
@@ -155,7 +174,7 @@ class PostDetail extends React.Component {
               />
                                 
             </View>        
-          )}
+          )} */}
           
           {/* </ScrollView> */}
         </ImageBackground>

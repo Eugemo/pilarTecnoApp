@@ -19,25 +19,34 @@ class PostEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
-      body: ''
+      name: '',
+      address: '',
+      latitude: '',
+      longitude: '',
+      url: '',
     }
   }
 
   componentDidMount = () => {
     const {item} = this.props.route.params;
     if ({item}){
-      this.setState({title: item.title, body: item.body})
+      this.setState({
+        name: item.name,
+        address: item.address,
+        latitude: item.latitude,
+        longitude: item.longitude,
+        url: item.url,  
+      })
     }
     
   }
 
   _updatePost = () => {
-    const { title, body } = this.state;
+    const { name, address, latitude, longitude, url } = this.state;
     const {item} = this.props.route.params;
-    const {id} = item;
+    const {_id} = item;
     ///VALIDACIONES
-    this.props.updatePost({title, body, id}).then(() => {
+    this.props.updatePost({_id, name, address, latitude, longitude, url}).then(() => {
       //this.props.navigation.navigate('Posts') Tambien funciona con esta linea
       this.props.navigation.popToTop()
     })
@@ -50,30 +59,70 @@ class PostEdit extends React.Component {
           style={[styles.content, { height, width }]}
           source={require('../assets/images/sakurafondo.jpg')}
         >
-          <Input
-           
+          <Input           
             inputContainerStyle={{
-              width: width * 0.8, alignItems: 'flex-start',
+              // width: width * 0.8, alignItems: 'flex-start',
               alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)', pading: 15
             }}
             inputStyle={{ color: 'white', marginLeft: 15 }}
             placeholderTextColor='#ccc'
-            value={this.state.title}
+            value={this.state.name}
             onChangeText={(value) => this.setState({ title: value })}
           />
-          <Input
-            
+          <Input            
             inputContainerStyle={{
-              width: width * 0.8, alignItems: 'flex-start',
+              // width: width * 0.8, alignItems: 'flex-start',
               alignSelf: 'center', height: height * 0.4, backgroundColor: 'rgba(0,0,0,0.5)',
               pading: 15
             }}
             inputStyle={{ color: 'white', marginLeft: 15 }}
             placeholderTextColor='#ccc'
-            value={this.state.body}
+            value={this.state.address}
             onChangeText={(value) => this.setState({ body: value })}
             multiline
             numberOfLines={2}
+          />
+           <Input
+            
+            inputContainerStyle={{
+              // width: width * 0.8, alignItems: 'flex-start',
+              alignSelf: 'center', height: height * 0.4, backgroundColor: 'rgba(0,0,0,0.5)',
+              pading: 15
+            }}
+            inputStyle={{ color: 'white', marginLeft: 15 }}
+            placeholderTextColor='#ccc'
+            value={this.state.latitude}
+            onChangeText={(value) => this.setState({ body: value })}
+            // multiline
+            // numberOfLines={2}
+          />
+           <Input
+            
+            inputContainerStyle={{
+              // width: width * 0.8, alignItems: 'flex-start',
+              alignSelf: 'center', height: height * 0.4, backgroundColor: 'rgba(0,0,0,0.5)',
+              pading: 15
+            }}
+            inputStyle={{ color: 'white', marginLeft: 15 }}
+            placeholderTextColor='#ccc'
+            value={this.state.longitude}
+            onChangeText={(value) => this.setState({ body: value })}
+            // multiline
+            // numberOfLines={2}
+          />
+           <Input
+            
+            inputContainerStyle={{
+              // width: width * 0.8, alignItems: 'flex-start',
+              alignSelf: 'center', height: height * 0.4, backgroundColor: 'rgba(0,0,0,0.5)',
+              pading: 15
+            }}
+            inputStyle={{ color: 'white', marginLeft: 15 }}
+            placeholderTextColor='#ccc'
+            value={this.state.url}
+            onChangeText={(value) => this.setState({ body: value })}
+            multiline
+            numberOfLines={3}
           />
           <TouchableOpacity
                 onPress={() => this._updatePost()}
