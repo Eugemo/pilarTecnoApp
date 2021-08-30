@@ -17,14 +17,17 @@ class PostCreate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
-      body: ''
+      name: '',
+      address: '',
+      latitude: '',
+      longitude: '',
+      url: '',
     }
   }
   _send = () => {
-    const { title, body } = this.state
+    const { name, address, latitude, longitude, url } = this.state
     ///VALIDACIONES
-    this.props.createPost({ title, body }).then(() => {
+    this.props.createPost({ name, address, latitude, longitude, url }).then(() => {
       this.props.navigation.goBack()
     })
   }
@@ -36,29 +39,68 @@ class PostCreate extends React.Component {
           source={require('../assets/images/sakurafondo.jpg')}
         >
           <Input
-            placeholder='Titulo'
+            placeholder='Lugar de Vacunación'
             inputContainerStyle={{
-              width: width * 0.8, alignItems: 'flex-start',
-              alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)', pading: 15
+              // width: width * 0.8, alignItems: 'flex-start',
+              alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)'
             }}
             inputStyle={{ color: 'white', marginLeft: 15 }}
             placeholderTextColor='#ccc'
-            value={this.state.title}
-            onChangeText={(value) => this.setState({ title: value })}
+            value={this.state.name}
+            onChangeText={(value) => this.setState({ name: value })}
           />
           <Input
-            placeholder='Descripcion'
+            placeholder='Dirección'
             inputContainerStyle={{
-              width: width * 0.8, alignItems: 'flex-start',
-              alignSelf: 'center', height: height * 0.4, backgroundColor: 'rgba(0,0,0,0.5)',
+              // width: width * 0.8, alignItems: 'flex-start',
+              alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)',
               pading: 15
             }}
             inputStyle={{ color: 'white', marginLeft: 15 }}
             placeholderTextColor='#ccc'
-            value={this.state.body}
-            onChangeText={(value) => this.setState({ body: value })}
+            value={this.state.address}
+            onChangeText={(value) => this.setState({ address: value })}
+            // multiline
+            // numberOfLines={2}
+          />
+          <Input
+            placeholder='Latitud'
+            inputContainerStyle={{
+              // width: width * 0.8, alignItems: 'flex-start',
+              alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)'
+            }}
+            inputStyle={{ color: 'white', marginLeft: 15 }}
+            placeholderTextColor='#ccc'
+            value={this.state.latitude}
+            onChangeText={(value) => this.setState({ latitude: value })}
+            // multiline
+            // numberOfLines={2}
+          />
+          <Input
+            placeholder='Longitud'
+            inputContainerStyle={{
+              // width: width * 0.8, alignItems: 'flex-start',
+              alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)'
+            }}
+            inputStyle={{ color: 'white', marginLeft: 15 }}
+            placeholderTextColor='#ccc'
+            value={this.state.longitude}
+            onChangeText={(value) => this.setState({ longitude: value })}
+            // multiline
+            // numberOfLines={2}
+          />
+          <Input
+            placeholder='Url de imagen'
+            inputContainerStyle={{
+              // width: width * 0.8, alignItems: 'flex-start',
+              alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)'
+            }}
+            inputStyle={{ color: 'white', marginLeft: 15 }}
+            placeholderTextColor='#ccc'
+            value={this.state.url}
+            onChangeText={(value) => this.setState({ url: value })}
             multiline
-            numberOfLines={2}
+            numberOfLines={3}
           />
           <TouchableOpacity
                 onPress={() => this._send()}
@@ -66,7 +108,7 @@ class PostCreate extends React.Component {
                   styles.button,                 
                 ]}
                 >
-                <Text>Nuevo Post</Text>
+                <Text>Guardar</Text>
           </TouchableOpacity>
           
         </ImageBackground>

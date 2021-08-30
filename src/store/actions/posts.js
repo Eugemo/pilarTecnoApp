@@ -34,11 +34,11 @@ export const getPosts = () => (dispatch) => {
         .catch((error) => console.log(error))
 }
 export const createPost = (data) => (dispatch) => {
-    const { title, body } = data
+    const { name, address, latitude, longitude, url } = data
     return postPosts(data)
         .then(([response, json]) => {
             if (response.ok === true) {
-                dispatch(createPostSuceess({ title, body }))
+                dispatch(createPostSuceess({ name, address, latitude, longitude, url }))
             }
             return json
         })

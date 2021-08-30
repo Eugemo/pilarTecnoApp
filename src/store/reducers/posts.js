@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
                 name: action.data.name,
                 address: action.data.address,
                 latitude: action.data.latitude,
-                longitude: action.daya.longitude,
+                longitude: action.data.longitude,
                 url: action.data.url
             }],
         };
