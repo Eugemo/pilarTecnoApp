@@ -19,7 +19,7 @@ import { ScrollView } from 'react-native';
 
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
-//const BASE_URL = 'https://jsonplaceholder.typicode.com/'
+
 
 class PostDetail extends React.Component {
   constructor(props) {
@@ -144,6 +144,11 @@ class PostDetail extends React.Component {
               onPress={() => this._delPost()}
               style={[styles.button]}>
               <Text>Borrar Lugar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              // onPress={() => this._delPost()}
+              style={[styles.button]}>
+              <Text>Ver Mapa</Text>
             </TouchableOpacity>
             </View>
             

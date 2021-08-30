@@ -19,6 +19,7 @@ class PostEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: '',
       name: '',
       address: '',
       latitude: '',
@@ -31,6 +32,7 @@ class PostEdit extends React.Component {
     const {item} = this.props.route.params;
     if ({item}){
       this.setState({
+        id: item.id,
         name: item.name,
         address: item.address,
         latitude: item.latitude,
@@ -41,10 +43,10 @@ class PostEdit extends React.Component {
     
   }
 
-  _updatePost = () => {
-    const { name, address, latitude, longitude, url } = this.state;
+  _updatePost = () => {   
     const {item} = this.props.route.params;
     const {_id} = item;
+    const { name, address, latitude, longitude, url } = this.state;
     ///VALIDACIONES
     this.props.updatePost({_id, name, address, latitude, longitude, url}).then(() => {
       //this.props.navigation.navigate('Posts') Tambien funciona con esta linea
@@ -62,37 +64,35 @@ class PostEdit extends React.Component {
           <Input           
             inputContainerStyle={{
               // width: width * 0.8, alignItems: 'flex-start',
-              alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)', pading: 15
+              alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)'
             }}
             inputStyle={{ color: 'white', marginLeft: 15 }}
             placeholderTextColor='#ccc'
             value={this.state.name}
-            onChangeText={(value) => this.setState({ title: value })}
+            onChangeText={(value) => this.setState({ name: value })}
           />
           <Input            
             inputContainerStyle={{
               // width: width * 0.8, alignItems: 'flex-start',
-              alignSelf: 'center', height: height * 0.4, backgroundColor: 'rgba(0,0,0,0.5)',
-              pading: 15
+              alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)'
             }}
             inputStyle={{ color: 'white', marginLeft: 15 }}
             placeholderTextColor='#ccc'
             value={this.state.address}
-            onChangeText={(value) => this.setState({ body: value })}
-            multiline
-            numberOfLines={2}
+            onChangeText={(value) => this.setState({ address: value })}
+            // multiline
+            // numberOfLines={2}
           />
            <Input
             
             inputContainerStyle={{
               // width: width * 0.8, alignItems: 'flex-start',
-              alignSelf: 'center', height: height * 0.4, backgroundColor: 'rgba(0,0,0,0.5)',
-              pading: 15
+              alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)'
             }}
             inputStyle={{ color: 'white', marginLeft: 15 }}
             placeholderTextColor='#ccc'
             value={this.state.latitude}
-            onChangeText={(value) => this.setState({ body: value })}
+            onChangeText={(value) => this.setState({ latitude: value })}
             // multiline
             // numberOfLines={2}
           />
@@ -100,13 +100,12 @@ class PostEdit extends React.Component {
             
             inputContainerStyle={{
               // width: width * 0.8, alignItems: 'flex-start',
-              alignSelf: 'center', height: height * 0.4, backgroundColor: 'rgba(0,0,0,0.5)',
-              pading: 15
+              alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)'
             }}
             inputStyle={{ color: 'white', marginLeft: 15 }}
             placeholderTextColor='#ccc'
             value={this.state.longitude}
-            onChangeText={(value) => this.setState({ body: value })}
+            onChangeText={(value) => this.setState({ longitude: value })}
             // multiline
             // numberOfLines={2}
           />
@@ -114,8 +113,7 @@ class PostEdit extends React.Component {
             
             inputContainerStyle={{
               // width: width * 0.8, alignItems: 'flex-start',
-              alignSelf: 'center', height: height * 0.4, backgroundColor: 'rgba(0,0,0,0.5)',
-              pading: 15
+              alignSelf: 'center', height: height * 0.1, backgroundColor: 'rgba(0,0,0,0.5)'
             }}
             inputStyle={{ color: 'white', marginLeft: 15 }}
             placeholderTextColor='#ccc'

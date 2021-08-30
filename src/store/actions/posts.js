@@ -45,8 +45,8 @@ export const createPost = (data) => (dispatch) => {
         .catch((error) => console.log(error))
 }
 export const delPost = (data) => (dispatch) => {
-    const { id } = data
-    return deletePost({ id })
+    const { _id } = data
+    return deletePost({ data })
         .then(([response, json]) => {
             if (response.ok === true) {
                 dispatch(delPostSuceess(data))

@@ -64,7 +64,7 @@ export const putPost = ({_id, name, address, latitude, longitude, url}) => {
 ///DELETE POST
 export const deletePost = ({data}) => {
     const {_id} = data
-    return fetch(`${BASE_URL}places/${_id}`, {
+    return fetch(`${BASE_URL}/places/${_id}`, {
     method: 'DELETE'
     })
     .then(Response =>{
@@ -75,7 +75,7 @@ export const deletePost = ({data}) => {
 
 ///SHOW POST
 export const showPost = ({id, name, address, latitude, longitude, url}) => {
-    return fetch(`${BASE_URL}places/${id}${id}`, {
+    return fetch(`${BASE_URL}/places/${id}${id}`, {
     method: 'PUT',
     body: JSON.stringify({
         id,
