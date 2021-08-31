@@ -42,9 +42,8 @@ export const postPosts = ({id, name, address, latitude, longitude, url}) => {
 export const putPost = ({_id, name, address, latitude, longitude, url}) => {
     const id = _id
     return fetch(`${BASE_URL}/places/${id}`, {
-    method: 'PUT',
+    method: 'PATCH',
     body: JSON.stringify({
-        _id,
         name,
         address,
         latitude,

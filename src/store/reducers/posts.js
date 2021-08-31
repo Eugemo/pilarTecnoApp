@@ -25,8 +25,8 @@ export default (state = initialState, action) => {
     }
     if (action.type === UPDATE_POSTS) {
         update = state.posts.map((post) => {
-            if (post._id === action.data._id) {
-                return action.data                
+            if (post._id === action.data._id) {                
+                return action.data                               
             }
             return post
         })

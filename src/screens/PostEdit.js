@@ -43,10 +43,14 @@ class PostEdit extends React.Component {
     
   }
 
-  _updatePost = () => {   
+  _updatePost = () => {  
+    const { name, address, latitude, longitude, url } = this.state;     
     const {item} = this.props.route.params;
     const {_id} = item;
-    const { name, address, latitude, longitude, url } = this.state;
+    
+    console.log('***********')
+    console.log(item)
+    console.log('***********')
     ///VALIDACIONES
     this.props.updatePost({_id, name, address, latitude, longitude, url}).then(() => {
       //this.props.navigation.navigate('Posts') Tambien funciona con esta linea

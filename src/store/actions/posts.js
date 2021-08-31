@@ -56,7 +56,7 @@ export const delPost = (data) => (dispatch) => {
         .catch((error) => console.log(error))
 }
 export const updatePost = (data) => (dispatch) => {
-   // const { id } = data
+//    const { _id } = data
     return putPost(data)
         .then(([response, json]) => {
             if (response.ok === true) {
