@@ -64,6 +64,7 @@ class PostCreate extends React.Component {
             // numberOfLines={2}
           />
           <Input
+            keyboardType='number-pad'
             placeholder='Latitud'
             inputContainerStyle={{
               // width: width * 0.8, alignItems: 'flex-start',
@@ -77,6 +78,7 @@ class PostCreate extends React.Component {
             // numberOfLines={2}
           />
           <Input
+            keyboardType='number-pad'
             placeholder='Longitud'
             inputContainerStyle={{
               // width: width * 0.8, alignItems: 'flex-start',

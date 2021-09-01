@@ -101,7 +101,7 @@ class PostEdit extends React.Component {
             // numberOfLines={2}
           />
            <Input
-            
+            keyboardType='number-pad'
             inputContainerStyle={{
               // width: width * 0.8, alignItems: 'flex-start',
               alignSelf: 'center', backgroundColor: 'rgba(0,0,0,0.5)'
@@ -114,7 +114,7 @@ class PostEdit extends React.Component {
             // numberOfLines={2}
           />
            <Input
-            
+            keyboardType='number-pad'
             inputContainerStyle={{
               // width: width * 0.8, alignItems: 'flex-start',
               alignSelf: 'center', height: height * 0.1, backgroundColor: 'rgba(0,0,0,0.5)'
@@ -122,7 +122,7 @@ class PostEdit extends React.Component {
             inputStyle={{ color: 'white', marginLeft: 15 }}
             placeholderTextColor='#ccc'
             value={this.state.url}
-            onChangeText={(value) => this.setState({ body: value })}
+            onChangeText={(value) => this.setState({ url: value })}
             multiline
             numberOfLines={3}
           />
