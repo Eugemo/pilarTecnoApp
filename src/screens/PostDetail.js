@@ -10,6 +10,8 @@ import {
   FlatList,
   ActivityIndicator,
   Image,
+  Linking,
+  Platform 
 } from 'react-native';
 import {Divider} from 'react-native-elements/dist/divider/Divider';
 import {actions} from '../store';
@@ -19,7 +21,7 @@ import { ScrollView } from 'react-native';
 
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
-
+const MAP_URL = 'https://www.google.com/maps'
 
 class PostDetail extends React.Component {
   constructor(props) {
@@ -33,16 +35,8 @@ class PostDetail extends React.Component {
       longitude: item.longitude,
       // comments: [],
     };
+    this.linkToMap = this.linkToMap.bind(this)
   }
-
-  // componentDidMount = () => {
-  //   fetchComments({id: this.state.id}).then(res => {
-  //     console.log('comentarios: ' + JSON.stringify(res[1]));
-  //     this.setState({
-  //       comments: res[1],
-  //     });     
-  //   });    
-  // };
 
   keyExtractor = (item, index) => index.toString();
   renderItem = ({item}) => (    
@@ -87,6 +81,19 @@ class PostDetail extends React.Component {
       this.props.navigation.goBack();
     });
   };
+
+  linkToMap = (latitude, longitude, name) => {
+    // console.log(`${MAP_URL}/@${latitude},${longitude}`)
+    // Linking.openURL(`${MAP_URL}/@(${latitude},${longitude})`)
+    const scheme = Platform.select({
+      ios: 'maps:',
+      android: 'geo:',
+    });
+    const position = `${latitude}, ${longitude}`;
+    const label = name;
+    const urlMap = `${scheme}${position}?q=${label}`;
+    Linking.openURL(urlMap);
+  }
 
   render() {
     const {item} = this.props.route.params;
@@ -146,42 +153,12 @@ class PostDetail extends React.Component {
               <Text>Borrar Lugar</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              // onPress={() => this._delPost()}
+              onPress={() => this.linkToMap(item.latitude, item.longitude, item.name)}
               style={[styles.button]}>
               <Text>Ver Mapa</Text>
             </TouchableOpacity>
             </View>
             
-{/*          
-          {!comments ? (
-            <ActivityIndicator />
-          ) : (            
-            <View
-              style={{
-                marginTop: 5,
-                backgroundColor: 'rgba(0,0,0,0.5)',
-                borderRadius: 8,
-                margin: 20,
-                padding: 5,
-             
-              }}>  
-              <Text
-                style={{fontSize: 18, color: 'white', fontWeight: 'bold'}}>
-                Comentarios
-              </Text>
-              <Divider />            
-               
-              <FlatList
-                style={{marginBottom: 80}}
-                keyExtractor={this.keyExtractor}
-                data={comments}                
-                renderItem={this.renderItem}
-              />
-                                
-            </View>        
-          )} */}
-          
-          {/* </ScrollView> */}
         </ImageBackground>
       </SafeAreaView>
     );
